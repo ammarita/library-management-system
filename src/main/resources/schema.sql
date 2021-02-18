@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS books;
+
+CREATE TABLE books (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(250) NOT NULL,
+  author VARCHAR(250) NOT NULL,
+  language VARCHAR(250) NOT NULL,
+  publication_year YEAR NOT NULL,
+  available BOOLEAN NOT NULL
+);
