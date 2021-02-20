@@ -24,7 +24,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
-public class BookServiceTest {
+class BookServiceTest {
 
     @Autowired
     BookService bookService;

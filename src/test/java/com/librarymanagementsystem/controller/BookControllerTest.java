@@ -1,11 +1,13 @@
 package com.librarymanagementsystem.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.librarymanagementsystem.dto.BookDto;
 import com.librarymanagementsystem.model.Book;
 import com.librarymanagementsystem.service.BookService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,13 +32,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BookControllerTest {
+class BookControllerTest {
 
     @MockBean
     BookService bookService;
 
     @Autowired
     MockMvc mockMvc;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     private Book book;
     private Book book2;
@@ -45,7 +50,7 @@ public class BookControllerTest {
     @BeforeEach
     void setUp() {
         book = new Book(1L, "Test title", "Test author", "lang", 2000L, false);
-        book2 = new Book(2L, "New test book", "New author", "land", 2020L, true);
+        book2 = new Book(2L, "New test book", "New author", "lang", 2020L, true);
         book3 = new Book(3L, "Another test book", "Another author", "lng", 2020L, true);
     }
 
@@ -87,13 +92,15 @@ public class BookControllerTest {
 
     @Test
     void testCreateOrUpdateBook() throws Exception{
-        Book book = new Book();
-        book.setId(2);
-        book.setTitle("Test Book");
-        book.setAuthor("New Author");
-        book.setLanguage("lang");
-        book.setPublicationYear(2021L);
-        book.setAvailable(true);
+        BookDto bookDto = new BookDto();
+        bookDto.setId(2);
+        bookDto.setTitle("Test Book");
+        bookDto.setAuthor("New Author");
+        bookDto.setLanguage("lang");
+        bookDto.setPublicationYear(2021L);
+        bookDto.setAvailable(true);
+        Book book = modelMapper.map(bookDto, Book.class);
+
         doReturn(book).when(bookService).createOrUpdateBook(book);
         mockMvc.perform(post("/library")
                 .contentType(MediaType.APPLICATION_JSON)

@@ -19,7 +19,7 @@ public class BookService {
     public List<Book> getAllBooks() {
         List<Book> bookList = bookRepository.findAll();
 
-        if(bookList.size() > 0) {
+        if(!bookList.isEmpty()) {
             return bookList;
         } else {
             return List.of();

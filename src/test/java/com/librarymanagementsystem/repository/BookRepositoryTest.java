@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 
 @SpringBootTest
-public class BookRepositoryTest {
+class BookRepositoryTest {
 
     @Autowired
     BookRepository bookRepository;

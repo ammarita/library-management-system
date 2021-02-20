@@ -11,14 +11,14 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-public class BookRepositoryH2Test {
+class BookRepositoryH2Test {
 
     @Autowired
     BookRepository bookRepository;
 
     @Test
     @Sql("classpath:data.sql")
-    public void testGerBooksByYear() {
+    void testGerBooksByYear() {
         List<Book> bookList = bookRepository.findByPublicationYear(2013L);
 
         assertThat(bookList).isNotEmpty();
